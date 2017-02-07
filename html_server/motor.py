@@ -35,36 +35,6 @@ def setSpeed(speed):
 	p.setPWM(EN_M0, 0, speed)
 	p.setPWM(EN_M1, 0, speed)
 
-def setup():
-	global forward0, forward1, backward1, backward0
-	forward0 = 'True'
-	forward1 = 'True'
-	GPIO.setwarnings(False)
-	GPIO.setmode(GPIO.BOARD)        # Number GPIOs by its physical location
-	try:
-		for line in open(FILE_CONFIG):
-			if line[0:8] == "forward0":
-				forward0 = line[11:-1]
-			if line[0:8] == "forward1":
-				forward1 = line[11:-1]
-	except:
-		pass
-	if forward0 == 'True':
-		backward0 = 'False'
-	elif forward0 == 'False':
-		backward0 = 'True'
-	if forward1 == 'True':
-		backward1 = 'False'
-	elif forward1 == 'False':
-		backward1 = 'True'
-	for pin in pins:
-		GPIO.setup(pin, GPIO.OUT)   # Set all pins' mode as output
-
-# ===========================================================================
-# Control the DC motor to make it rotate clockwise, so the car will 
-# move forward.
-# ===========================================================================
-
 def motor0(x):
 	if x == 'True':
 		GPIO.output(Motor0_A, GPIO.LOW)
